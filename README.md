@@ -1,2 +1,2 @@
-# ISSSS
+# IS
 random chat
