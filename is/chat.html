@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talk With Stranger!</title>
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+  <script type="text/javascript" src="js/chat.js"></script>
+  <link rel="stylesheet" href="css/chat.css">
+  <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="main">
+      <div class="ignore"></div>
+      <div class="chat_deco">
+        <div class="header">
+          <div><h1>strangers</h1></div>
+          <div class="ui">
+            <span id="ppl">0/2</span>
+            <button id="exit"> <i class="fa-solid fa-door-open"></i> <br>
+             Exit
+            </button>
+          </div>
+        </div>
+        <div id="chat_container">
+        </div>
+        <div class="submit_containner">
+          <form id="form">
+            <input
+              type="text"
+              id="input"
+              placeholder="พิมพ์ข้อความ..."
+              maxlength="1000"
+              autocomplete="off"
+              required
+            />
+            <button id="send">
+              <img src="https://firebasestorage.googleapis.com/v0/b/codeless-app.appspot.com/o/projects%2FGtkbiFYeMky8NgelmkFu%2Fa41a38d9b7bf2a69cf21982aee06aa06?alt=media&amp;token=3ebf5423-ff4a-4bbf-ada4-fb34e6b74728"/>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

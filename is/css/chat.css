@@ -1,0 +1,190 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(src/HarlowSolidItalicItalic.ttf);
+ }
+ 
+ * {
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+ }
+ 
+ html {
+ 
+ }
+ 
+ body {
+    overflow-x: hidden;
+    background-color: bisque;
+ }
+ 
+ .main {
+ }
+ 
+ .ignore {
+    width: 100%;
+    height: 100px
+ }
+
+ .chat_deco {
+    width: 80%;
+    height: 800px;
+    background-color: white;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 70px;
+    padding-top: 20px;
+ }
+ 
+ #chat_container {
+    width: 90%;
+    height: 600px;
+    overflow-y: auto;
+ }
+ 
+ .deco1 {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: red;
+    float: right;
+    margin-top: -200px;
+    margin-right: -30px;
+ }
+ 
+ #user {
+    padding-bottom: 5px;
+ }
+ 
+ #user p {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Varela Round;
+ }
+ 
+ #message {
+    padding-bottom: 5px;
+ }
+ 
+ #message p {
+    font-size: 15px;
+    font-family: Varela Round;
+    background: rgba(219, 219, 219, 0.6);
+    border-radius: 30px;
+    padding: 10px;
+    width: fit-content;
+    font-weight: 800;
+ }
+
+#message p#own {
+    font-size: 15px;
+    font-family: Varela Round;
+    background-color: rgb(153, 255, 0);
+    border-radius: 30px;
+    padding: 10px;
+    width: fit-content;
+    font-weight: 800;
+}
+
+ #message.own {
+    background-color: aquamarine;
+    border-radius: 50%;
+ }
+ 
+ .submit_containner {
+    width: 90%;
+ }
+ 
+ #form {}
+ 
+ #input {
+    font-size: 16px;
+    width: 95%;
+    padding-left: 5px;
+    padding-bottom: 3px;
+    font-family: Varela Round;
+    border-bottom: 2px dashed black;
+ }
+ 
+ #send {
+    width: 55px;
+    height: 55px;
+    background-color: rgb(0, 255, 13);
+    border-radius: 100%;
+ }
+ 
+ #send img {
+    width: 60%;
+    height: 60%;
+ }
+ 
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+span {
+    font-size: 20px;
+    font-family: Varela Round;
+}
+
+.ui {
+    padding-right: 5%;
+}
+
+#exit {
+    font-family: Varela Round;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+ h1 {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+ 
+    
+    font-size: 200px;
+    font-weight: 400;
+    font-family: myFirstFont;
+    color: #FFE600;;
+    text-shadow: 12px 4px 4px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    height: 100%;
+    margin-left: 10%;
+    margin-top: -20%;
+ }
+ 
+ @media screen and (max-width:912px) {
+    #input {
+       font-size: 16px;
+       width: 85%;
+       padding-left: 5px;
+       padding-bottom: 3px;
+       font-family: Varela Round;
+       border-bottom: 2px dashed black;
+    }
+    
+ 
+    #send {
+       width: 30px;
+       height: 30px;
+       background-color: rgb(0, 255, 13);
+       border-radius: 100%;
+    }
+ 
+    h1 {
+       font-size: 75px;
+    }
+ }
