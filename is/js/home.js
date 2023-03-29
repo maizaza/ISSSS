@@ -30,7 +30,7 @@ window.onload = function()
         snapshot.forEach(function(childSH) //ลูปแต่ละตัวเพื่อเช็คว่าห้องไหนว่างบ้าง
         {
           //console.log('count: ', childSH.child('count').val(), " room: ", childSH.key)
-          if (childSH.child('count').val() <= 1)
+          if (childSH.child('count').val() <= 1) //ถ้าคนในห้องนั้นน้อยกว่าหรือเท่ากับ 1​
           { 
               //console.log("push once:", childSH.key)
               tojoins.push(childSH.key) //เพิ่มห้องที่ว่างลงตัวแปร tojoins
