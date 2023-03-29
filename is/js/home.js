@@ -23,25 +23,25 @@ window.onload = function()
 
     function get_room(leftroom, user) //ฟังชั่นที่เอาไว้ใช้หาห้องที่สามารถเข้าได้
     {
-      var tojoins = ['']
+      var tojoins = [''] //ตัวแปร
       db.ref('rooms/').once('value').then(function(snapshot) 
       {
         //console.log("key once:",snapshot.val())
-        snapshot.forEach(function(childSH) //ลูปแต่ละตัวเพื่อเช็คว่าห้องในว่างบ้าง
+        snapshot.forEach(function(childSH) //ลูปแต่ละตัวเพื่อเช็คว่าห้องไหนว่างบ้าง
         {
           //console.log('count: ', childSH.child('count').val(), " room: ", childSH.key)
           if (childSH.child('count').val() <= 1)
           { 
               //console.log("push once:", childSH.key)
-              tojoins.push(childSH.key)
+              tojoins.push(childSH.key) //เพิ่มห้องที่ว่างลงตัวแปร tojoins
           }   
         });
         //console.log("tojoin once:",tojoins)
-        croom = tojoins[RandomInt(1, tojoins.length)] //เปลี่ยนค่าตัวแปรเป็นห้องที่เราจะเข้าใช้งาน
-        localStorage.setItem('croom', croom)
+        croom = tojoins[RandomInt(1, tojoins.length)] //เปลี่ยนค่าตัวแปรเป็นห้องที่เราจะเข้าใช้งานจากการ สุ่มเลือกห้องจาก tojoins
+        localStorage.setItem('croom', croom) //ตั้งค่า croom ลง localstorage เพื่อนำไปใช้ต่อใน chat.js
         db.ref('rooms/'+croom+'/users/'+user).set(true) //ใส่ชื่อลง database
         if (leftroom > 0)
-          db.ref('rooms/' + croom).update({count: 2}) //ใส่จำนวนคนลง database
+          db.ref('rooms/' + croom).update({count: 2}) //อัพเดทจำนวนคนลง database
       });
     }
 
@@ -82,7 +82,7 @@ window.onload = function()
             var user = input.value //ชื่อที่เราใส่
             check_existname(user) //เรียกใช้ ฟังชั่น ตรวจสอบชื่อที่เราใส่
             setTimeout(function() {
-              if (can) //ถ้า can เป็น true(ใช้ชื่อได้)​
+              if (can) //ถ้า can เป็น true(ใช้ชื่อได้)​ และรันโค๊ดในปีกกา
               {
                 var leftroom = 0 //ตัวแปร
                 db.ref('rooms/').once('value').then(function(snapshot) //รับค่าจาก database
@@ -96,20 +96,20 @@ window.onload = function()
                   var index = parseFloat(snapshot.numChildren()) //จำนวนห้องทั้งหมดใน database
                   if (index <= 0) //ถ้าเป็น 0 ให้สร้างห้องที่มีชื่อว่า room_1
                     db.ref('rooms/room_1').update({count: 1}) //อัพเดทจำนวนคนในห้อง
-                  else if (leftroom <= 0) //ถ้าน้อยกว่าหรือเท่ากับ 0
+                  else if (leftroom <= 0) //ถ้า leftroom น้อยกว่าหรือเท่ากับ 0
                     db.ref('rooms/' + `room_${index+1}`).update({count: 1}) //อัพเดทจำนวนคนในห้อง
                   
-                  get_room(leftroom, user)
-                  setTimeout(function() {window.location.href = "chat.html"}, 1000)
+                  get_room(leftroom, user) //เรียกใช้ฟังชั่น get_room เพื่อหาห้องที่ว่าง
+                  setTimeout(function() {window.location.href = "chat.html"}, 1000) //เปลี่ยนหน้าเว็ปเป็นห้องแชทหลังจาก 1 วิ
                 });
               }
-              else
+              else //ถ้า can เป็น false (ชื่อซ้ำ)​
               {
                 input.value = "This nickname has been taken already!"
                 btn.classList.remove('enabled')
                 setTimeout(function() {input.value = ''; input.focus()},500)
               }
-              if (can) {
+              if (can) { //ถ้าชื่อใช้ได้ ให้เอาฟังชั่นตอนกดเริ่มออกเพื่อจะได้หลีกเลี่ยงปัญหาเวลาผู้ใช้กดเข้าร่วมหลายๆรอบ
                 form.removeEventListener("submit", act)
                 form.addEventListener("submit", (e) => {
                   e.preventDefault()
