@@ -10,9 +10,9 @@ window.onload = function()
         appId: "1:432299910559:web:b9ecae53b54be9c88d09aa",
         measurementId: "G-B2FPHRWR5E"
       };
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig); //ตั้งค่า database
     
-    var db = firebase.database() //ตั้งค่า Database
+    var db = firebase.database() //ตัวแปรเพื่อเรียกใช้งานข้อมูลจาก database
     var croom = 'room_1' //ตัวแปรเอาไว้เก็บค่า ห้องแชทปัจจุบันที่เราอยู่
     var can = true //ตัวแปรเอาไว้ตรวจสอบว่า สามารถใช้ชื่อได้ไหม
 
@@ -77,27 +77,27 @@ window.onload = function()
                 btn.classList.remove('enabled')
         }
 
-        form.addEventListener("submit", function act(e) { // ตอนเรากดเข้าร่วมห้อง
+        form.addEventListener("submit", function act(e) { // เพิ่มฟังชั่นตอนเรากดปุ่ม เข้าร่วม
             e.preventDefault()
             var user = input.value //ชื่อที่เราใส่
-            check_existname(user)
+            check_existname(user) //เรียกใช้ ฟังชั่น ตรวจสอบชื่อที่เราใส่
             setTimeout(function() {
-              if (can)
+              if (can) //ถ้า can เป็น true(ใช้ชื่อได้)​
               {
-                var leftroom = 0
-                db.ref('rooms/').once('value').then(function(snapshot) 
+                var leftroom = 0 //ตัวแปร
+                db.ref('rooms/').once('value').then(function(snapshot) //รับค่าจาก database
                 {
                   console.log('start')
-                  snapshot.forEach(function(childSH)
+                  snapshot.forEach(function(childSH) //ลูป
                   {
-                      if (childSH.child('count').val() <= 1)
-                          leftroom += 1
+                      if (childSH.child('count').val() <= 1) //ถ้าคนในห้องน้อยกว่าหรือเท่ากับ 1
+                          leftroom += 1 //เพิ่ม leftroom = leftroom +1
                   });
-                  var index = parseFloat(snapshot.numChildren())
-                  if (index <= 0)
-                    db.ref('rooms/room_1').update({count: 1}) 
-                  else if (leftroom <= 0)
-                    db.ref('rooms/' + `room_${index+1}`).update({count: 1})
+                  var index = parseFloat(snapshot.numChildren()) //จำนวนห้องทั้งหมดใน database
+                  if (index <= 0) //ถ้าเป็น 0 ให้สร้างห้องที่มีชื่อว่า room_1
+                    db.ref('rooms/room_1').update({count: 1}) //อัพเดทจำนวนคนในห้อง
+                  else if (leftroom <= 0) //ถ้าน้อยกว่าหรือเท่ากับ 0
+                    db.ref('rooms/' + `room_${index+1}`).update({count: 1}) //อัพเดทจำนวนคนในห้อง
                   
                   get_room(leftroom, user)
                   setTimeout(function() {window.location.href = "chat.html"}, 1000)
