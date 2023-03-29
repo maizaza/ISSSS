@@ -59,7 +59,7 @@ window.onload = function()
       })
     }
 
-    function onjoin_room() //ฟังชั่นตอนก่อนจะเข้าห้องแชท
+    function onjoin_room() //ฟังชั่นหลัก ก่อนจะเข้าห้องแชท
     {
         const form = document.getElementById('form')
         const input = document.getElementById('input')
@@ -77,7 +77,7 @@ window.onload = function()
                 btn.classList.remove('enabled')
         }
 
-        form.addEventListener("submit", function act(e) { //ฟังชั่นหลัก ตอนเรากดเข้าร่วมห้อง
+        form.addEventListener("submit", function act(e) { // ตอนเรากดเข้าร่วมห้อง
             e.preventDefault()
             var user = input.value //ชื่อที่เราใส่
             check_existname(user)
@@ -118,5 +118,5 @@ window.onload = function()
         })
     }
     
-    onjoin_room() //ใช้งานฟังชั่น
+    onjoin_room() //ใช้งานฟังชั่นหลักตอนเข้าสู่หน้าเว็ป
 }
