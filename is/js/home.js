@@ -12,22 +12,22 @@ window.onload = function()
       };
     firebase.initializeApp(firebaseConfig);
     
-    var db = firebase.database()
-    var croom = 'room_1'
-    var can = true
+    var db = firebase.database() //ตั้งค่า Database
+    var croom = 'room_1' //ตัวแปรเอาไว้เก็บค่า ห้องแชทปัจจุบันที่เราอยู่
+    var can = true //ตัวแปรเอาไว้ตรวจสอบว่า สามารถใช้ชื่อได้ไหม
 
-    function RandomInt(min, max) 
+    function RandomInt(min, max) //ฟังชั่น​สุ่มค่าตัวเลขระหว่าง Min-Max Ex. 1-10 
     {
         return Math.floor(Math.random() * (max - min) ) + min;
     }
 
-    function get_room(leftroom, user)
+    function get_room(leftroom, user) //ฟังชั่นที่เอาไว้ใช้หาห้องที่สามารถเข้าได้
     {
       var tojoins = ['']
       db.ref('rooms/').once('value').then(function(snapshot) 
       {
         //console.log("key once:",snapshot.val())
-        snapshot.forEach(function(childSH)
+        snapshot.forEach(function(childSH) //ลูปแต่ละตัวเพื่อเช็คว่าห้องในว่างบ้าง
         {
           //console.log('count: ', childSH.child('count').val(), " room: ", childSH.key)
           if (childSH.child('count').val() <= 1)
@@ -37,21 +37,21 @@ window.onload = function()
           }   
         });
         //console.log("tojoin once:",tojoins)
-        croom = tojoins[RandomInt(1, tojoins.length)]
+        croom = tojoins[RandomInt(1, tojoins.length)] //เปลี่ยนค่าตัวแปรเป็นห้องที่เราจะเข้าใช้งาน
         localStorage.setItem('croom', croom)
-        db.ref('rooms/'+croom+'/users/'+user).set(true)
+        db.ref('rooms/'+croom+'/users/'+user).set(true) //ใส่ชื่อลง database
         if (leftroom > 0)
-          db.ref('rooms/' + croom).update({count: 2}) 
+          db.ref('rooms/' + croom).update({count: 2}) //ใส่จำนวนคนลง database
       });
     }
 
-    function check_existname(user)
+    function check_existname(user) //ฟังชั่น​เอาไว้เช็คว่าชื่อที่เราใส่สามารถใช้งานได้
     {
       db.ref('users').once('value').then(function(snapshot) {
-        if (snapshot.hasChild(user)) {
+        if (snapshot.hasChild(user)) { // ถ้ามีชื่อ
           can = false
         }
-        else {
+        else { // ถ้าไม่มี
           can = true
           db.ref('users/'+user).set(true)
           localStorage.setItem('name', user)
