@@ -45,21 +45,21 @@ window.onload = function()
       });
     }
 
-    function check_existname(user) //ฟังชั่น​เอาไว้เช็คว่าชื่อที่เราใส่สามารถใช้งานได้
+    function check_existname(user) //ฟังชั่น​เอาไว้เช็คว่าชื่อที่เราใส่มีอยู่ใน Database หรือป่าว
     {
-      db.ref('users').once('value').then(function(snapshot) {
+      db.ref('users').once('value').then(function(snapshot) { //ฟังชั่นเพื่อเอาไว้รับค่า username จาก database
         if (snapshot.hasChild(user)) { // ถ้ามีชื่อ
-          can = false
+          can = false //ไม่สามารถใช้งานได้
         }
         else { // ถ้าไม่มี
-          can = true
-          db.ref('users/'+user).set(true)
-          localStorage.setItem('name', user)
+          can = true //สามารถใช้งานได้
+          db.ref('users/'+user).set(true) //นำข้อมูลลง database
+          localStorage.setItem('name', user) //ใส่ชื่อลงใน local storage เพื่อนำไปใช่ต่อในห้องแชท (chat.js)​
         }
       })
     }
 
-    function onjoin_room()
+    function onjoin_room() //ฟังชั่นตอนก่อนจะเข้าห้องแชท
     {
         const form = document.getElementById('form')
         const input = document.getElementById('input')
@@ -69,7 +69,7 @@ window.onload = function()
         input.focus()
         btn.classList.remove('enabled')
 
-        input.onkeyup = function()
+        input.onkeyup = function() //เอาไว้ตกแต่งสวยๆ
         {
             if(input.value.length > 0)
                 btn.classList.add('enabled')
@@ -77,9 +77,9 @@ window.onload = function()
                 btn.classList.remove('enabled')
         }
 
-        form.addEventListener("submit", function act(e) {
+        form.addEventListener("submit", function act(e) { //ฟังชั่นหลัก ตอนเรากดเข้าร่วมห้อง
             e.preventDefault()
-            var user = input.value
+            var user = input.value //ชื่อที่เราใส่
             check_existname(user)
             setTimeout(function() {
               if (can)
@@ -118,5 +118,5 @@ window.onload = function()
         })
     }
     
-    onjoin_room()
+    onjoin_room() //ใช้งานฟังชั่น
 }
